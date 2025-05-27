@@ -1,0 +1,87 @@
+[debug] [2019-09-02T15:14:57.578Z] ----------------------------------------------------------------------
+[debug] [2019-09-02T15:14:57.580Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2019-09-02T15:14:57.581Z] CLI Version:   7.0.2
+[debug] [2019-09-02T15:14:57.581Z] Platform:      darwin
+[debug] [2019-09-02T15:14:57.581Z] Node Version:  v10.16.0
+[debug] [2019-09-02T15:14:57.590Z] Time:          Mon Sep 02 2019 22:14:57 GMT+0700 (Indochina Time)
+[debug] [2019-09-02T15:14:57.590Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-02T15:14:57.622Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-02T15:14:57.622Z] > authorizing via signed-in user
+[debug] [2019-09-02T15:14:57.622Z] [iam] checking project marwin-linebot for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2019-09-02T15:14:57.625Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-09-02T15:14:57.625Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-09-02T15:14:58.117Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-02T15:14:58.185Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/marwin-linebot:testIamPermissions  
+
+[debug] [2019-09-02T15:15:28.698Z] Error: getaddrinfo ENOTFOUND cloudresourcemanager.googleapis.com cloudresourcemanager.googleapis.com:443
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)
+[error] 
+[error] Error: Server Error. getaddrinfo ENOTFOUND cloudresourcemanager.googleapis.com cloudresourcemanager.googleapis.com:443
+[debug] [2019-09-02T15:18:22.953Z] ----------------------------------------------------------------------
+[debug] [2019-09-02T15:18:22.956Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2019-09-02T15:18:22.957Z] CLI Version:   7.0.2
+[debug] [2019-09-02T15:18:22.957Z] Platform:      darwin
+[debug] [2019-09-02T15:18:22.957Z] Node Version:  v10.16.0
+[debug] [2019-09-02T15:18:22.962Z] Time:          Mon Sep 02 2019 22:18:22 GMT+0700 (Indochina Time)
+[debug] [2019-09-02T15:18:22.962Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-02T15:18:22.979Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-02T15:18:22.979Z] > authorizing via signed-in user
+[debug] [2019-09-02T15:18:22.980Z] [iam] checking project marwin-linebot for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2019-09-02T15:18:22.981Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/marwin-linebot:testIamPermissions  
+
+[debug] [2019-09-02T15:18:25.053Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'marwin-linebot'...
+[info] 
+[info] i  deploying firestore, functions
+[info] i  firestore: checking firestore.rules for compilation errors...
+[info] i  firestore: reading indexes from firestore.indexes.json...
+[debug] [2019-09-02T15:18:56.799Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/marwin-linebot:test  
+
+[debug] [2019-09-02T15:18:58.465Z] <<< HTTP RESPONSE 200
+[info] ✔  firestore: rules file firestore.rules compiled successfully
+[debug] [2019-09-02T15:18:58.467Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.0.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-09-02T15:18:58.468Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/marwin-linebot?view=CONSUMER_VIEW  
+ 
+[debug] [2019-09-02T15:18:58.469Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/marwin-linebot?view=CONSUMER_VIEW  
+ 
+[debug] [2019-09-02T15:19:00.743Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-02T15:19:01.528Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-09-02T15:19:01.529Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/marwin-linebot  
+ 
+[debug] [2019-09-02T15:19:03.685Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-02T15:19:03.685Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/390464101208:getServerAppConfig  
+ 
+[debug] [2019-09-02T15:20:03.706Z] Error: getaddrinfo ENOTFOUND mobilesdk-pa.googleapis.com mobilesdk-pa.googleapis.com:443
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)
+[error] 
+[error] Error: Server Error. getaddrinfo ENOTFOUND mobilesdk-pa.googleapis.com mobilesdk-pa.googleapis.com:443
