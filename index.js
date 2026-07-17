@@ -1,21 +1,30 @@
+// SAT Question-of-the-Day LINE bot — two bots (Math + English) as Firebase
+// Cloud Functions. Each day has one question doc in Firestore; users answer
+// A–D over LINE chat, get graded, and can ask for an explanation or their
+// running score. See README.md for the Firestore layout and setup.
 const functions = require('firebase-functions');
 const request = require('request-promise');
 const admin = require('firebase-admin');
 
 const LINE_MESSAGING_API = 'https://api.line.me/v2/bot/message';
+
+// Channel access tokens come from Firebase Functions config, never from the
+// repo:  firebase functions:config:set line.math_token="..." line.english_token="..."
 const LINE_HEADER_MATH = {
   'Content-Type': 'application/json',
-  'Authorization': `Bearer juLaPeF10ZMgrOcSFrptXy2knyFl0jl81whHoACYZyKHFqgvpnHix1H0Hhvubr7SABSCkTnL1CVifdtCgo8jC24l17a0nMCkN04alef29b1fr0vuZlx/fThmC9YDjZ0+dbPi1PYlNWZ77nBBpFyg+gdB04t89/1O/w1cDnyilFU=`
+  'Authorization': `Bearer ${functions.config().line.math_token}`
 };
 
 const LINE_HEADER_ENGLISH = {
   'Content-Type': 'application/json',
-  'Authorization': `Bearer 04QgCP6d5alXC9gDTWOB44Z842BQucV9wlt9laWok+iekEQ7974RestGnGvIWQWfqOn4Wf0DruXwVUM5L094FQWzisFPAZ6CC1hfvktqRBY2edKljP0ib0DQUwVj5F+ABKok/V32mrrt0I2J3MrfJQdB04t89/1O/w1cDnyilFU=`
+  'Authorization': `Bearer ${functions.config().line.english_token}`
 }
 
 admin.initializeApp(functions.config().firebase);
 let db = admin.firestore();
 
+// Webhook for the Math bot. LINE POSTs every event here: new followers get
+// today's question immediately; text messages are graded/answered below.
 exports.MathReplyBot = functions.https.onRequest(async (req, res) => {
 
   if (req.body.events[0].type == 'follow') {
@@ -114,6 +123,8 @@ exports.MathReplyBot = functions.https.onRequest(async (req, res) => {
   res.status(200).send('ok');
 });
 
+// Webhook for the English bot — same flow as MathReplyBot but against the
+// 'e<YYYYMMDD>' question docs and the english-users collection.
 exports.EnglishReplyBot = functions.https.onRequest(async (req, res) => {
 
   if (req.body.events[0].type == 'follow') {
@@ -209,6 +220,8 @@ exports.EnglishReplyBot = functions.https.onRequest(async (req, res) => {
   res.status(200).send('ok');
 });
 
+// Daily broadcast endpoints — hit these once a day (e.g. Cloud Scheduler) to
+// push today's question image to every follower of each bot.
 exports.MathBroadcast = functions.https.onRequest(async (req, res) => {
   let today = new Date();
   let id = 'm' + today.toISOString().substring(0,10).replace('-', '').replace('-', '');
@@ -227,6 +240,11 @@ exports.EnglishBroadcast = functions.https.onRequest(async (req, res) => {
     });
 });
 
+
+// --- LINE Messaging API helpers ---------------------------------------------
+// reply* answer a specific message (replyToken); *Image variants send an image
+// (question/explanation URLs stored in Firestore); *Broadcast push to all
+// followers. Math/English pairs differ only in which channel token they use.
 
 const mathReply = (replyToken, text) => {
   return request({
